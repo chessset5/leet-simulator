@@ -19,7 +19,7 @@ class SolutionTesting(unittest.TestCase):
         self.sol = Solution()
 
     # TODO change to match current Solution Object
-    def assert_test(self, head: list, expected: list) -> None:
+    def assert_test(self, head: list, k: int, expected: list) -> None:
         """Helper to standardize sorting and assertion logic."""
 
         # TODO change the below to match the current Solution Object
@@ -30,7 +30,7 @@ class SolutionTesting(unittest.TestCase):
 
         # solve
         # new head
-        n_head: ListNode | None = self.sol.swapPairs(head=h_node)
+        n_head: ListNode | None = self.sol.reverseKGroup(head=h_node, k=k)
 
         # post-process
 
@@ -38,10 +38,7 @@ class SolutionTesting(unittest.TestCase):
         self.assertTrue(expr=node_is_equal(n_head, e_node))
 
     def test_case1(self) -> None:
-        self.assert_test(head=[1, 2, 3, 4], expected=[2, 1, 4, 3])
+        self.assert_test(head=[1, 2, 3, 4, 5], k=2, expected=[2, 1, 4, 3, 5])
 
     def test_case2(self) -> None:
-        self.assert_test(head=[], expected=[])
-
-    def test_case3(self) -> None:
-        self.assert_test(head=[1, 2, 3], expected=[2, 1, 3])
+        self.assert_test(head=[1, 2, 3, 4, 5], k=3, expected=[3, 2, 1, 4, 5])
