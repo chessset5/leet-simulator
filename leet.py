@@ -18,38 +18,41 @@ from LeetTypes.single_list_node import ListNode, node_to_list
 #         self.val = val
 #         self.next = next
 class Solution:
-    def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        if head is None:
-            return head
-
-        if head.next is None:
-            return head
-
-        cn: ListNode | None = head  # current node
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        cn: Optional[ListNode] = head  # current node
         head = None
-        ln: ListNode | None = head  # last node
         while cn is not None:
-            fp: ListNode | None = cn  # first possition
-            sp: ListNode | None = fp.next  # second possition
+            stn: Optional[ListNode] = cn  # sub tail node
+            shn: Optional[ListNode] = cn  # sub head node
 
-            # break away early if second is None
-            if sp is None:
+            # verify there are enough nodes left
+            cnt: int = 0
+            for i in range(k):
+                if cn is None:
+                    break
+                cn = cn.next
+                cnt += 1
+            if cnt < k:
                 break
 
-            if ln is not None:
-                ln.next = sp
+            for i in range(k):
+                # store next node
+                nn: Optional[ListNode] = shn.next  # next node
 
-            # swap possitions
-            fp.next = sp.next
-            sp.next = fp
+                # point sub header to nn.next
+                shn.next = nn.next
 
-            ln = fp
+                # put nn.next to stn
+                nn.next = stn
 
-            # set new head if not set
+                # update tail to nn
+                stn = nn
+
+            # set the first sub tail node to the new head
             if head is None:
-                head = sp
+                head = stn
 
-            # advance pointer
-            cn = fp.next
+            # update the current node
+            cn = cn.next
 
         return head
