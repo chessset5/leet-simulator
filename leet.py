@@ -22,7 +22,7 @@ changed.
 
 from typing import Optional
 
-from LeetTypes.single_list_node import ListNode, node_to_list
+from LeetTypes.single_list_node import ListNode, node_to_list, repr_node
 
 
 # Definition for singly-linked list.
@@ -32,11 +32,13 @@ from LeetTypes.single_list_node import ListNode, node_to_list
 #         self.next = next
 class Solution:
     def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        ls_print: ListNode | None = head
         cn: Optional[ListNode] = head  # current node
         head = None
+        ln: Optional[ListNode] = head
         while cn is not None:
-            stn: Optional[ListNode] = cn  # sub tail node
-            shn: Optional[ListNode] = cn  # sub head node
+            shn: ListNode = cn  # sub head node
+            stn: ListNode = cn  # sub tail node
 
             # verify there are enough nodes left
             cnt: int = 0
@@ -48,9 +50,9 @@ class Solution:
             if cnt < k:
                 break
 
-            for i in range(k):
+            for i in range(k - 1):
                 # store next node
-                nn: Optional[ListNode] = shn.next  # next node
+                nn: ListNode = shn.next  # next node # type: ignore
 
                 # point sub header to nn.next
                 shn.next = nn.next
@@ -64,8 +66,10 @@ class Solution:
             # set the first sub tail node to the new head
             if head is None:
                 head = stn
-
-            # update the current node
-            cn = cn.next
+                ln = shn
+            else:
+                # repoint ln to sub header
+                ln.next = stn  # type: ignore
+                ln = shn
 
         return head
