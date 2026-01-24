@@ -41,6 +41,22 @@ def list_to_node(ls: list) -> Optional[ListNode]:
     return head
 
 
+def node_to_list(head: Optional[ListNode]) -> list:
+    """
+    Turns a Node into a List
+
+    :param head: head node to turn into a list
+    :type head: Optional[ListNode]
+    :return: list of head node
+    :rtype: list[Any]
+    """
+    ls: list = []
+    while head is not None:
+        ls.append(head.val)
+        head = head.next
+    return ls
+
+
 def node_is_equal(lhs: Optional[ListNode], rhs: Optional[ListNode]) -> bool:
     """
     compares single list nodes
