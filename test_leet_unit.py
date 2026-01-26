@@ -49,3 +49,6 @@ class SolutionTesting(unittest.TestCase):
 
     def test_case5(self) -> None:
         self.assert_test(haystack="mississippi", needle="issip", expected=4)
+
+    def test_case6(self) -> None:
+        self.assert_test(haystack="mississippi", needle="issipi", expected=4)

@@ -42,19 +42,20 @@ class Solution:
             return -1
         i: int = 0  # index
         j: int = 0  # jndex
-        lookback: int = 0  # lookback index
+        setback: int = 0  # setback for duplicate character to 0 index, eg: issi
         while i < len(haystack):
             while j < len(needle) and haystack[i] == needle[j]:
-                if lookback == 0 and j > 0 and needle[j] == needle[0]:
-                    lookback = j - 1
+                if setback == 0 and j > 0 and needle[j] == needle[0]:
+                    setback = j - 1  # offset for the increment
                 i += 1
                 j += 1
             if j == len(needle) and haystack[i - 1] == needle[j - 1]:
                 # if needle found
+                # cur pos, minus len of needle
                 return i - len(needle)
             else:
-                # advance i, reset 0, go back by look back
+                # advance i, reset 0
                 i += 1
-                i -= lookback
+                i -= setback
                 j = 0
         return -1
