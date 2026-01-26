@@ -42,15 +42,19 @@ class Solution:
             return -1
         i: int = 0  # index
         j: int = 0  # jndex
+        lookback: int | None = None  # lookback index
         while i < len(haystack):
             while j < len(needle) and haystack[i] == needle[j]:
                 i += 1
                 j += 1
+                if lookback is None and haystack[i] == haystack[0]:
+                    lookback = i
             if i > 0 and j > 0 and haystack[i - 1] == needle[j - 1]:
                 # if needle found
                 return i - len(needle)
             else:
                 # advance i, reset 0, go back by look back
                 i += 1
+                i -= lookback if lookback else 0
                 j = 0
         return -1
