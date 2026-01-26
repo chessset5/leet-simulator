@@ -33,7 +33,7 @@ class SolutionTesting(unittest.TestCase):
         # post-process
 
         # assert
-        self.assertTrue(expr=index == expected)
+        self.assertEqual(index, expected)
 
     def test_case1(self) -> None:
         self.assert_test(haystack="sadbutsad", needle="sad", expected=0)
