@@ -60,7 +60,7 @@ class Solution:
                 if setback:
                     i = setback
                     setback = 0
-                else:
-                    i += 1 if not j else 0
+                elif not j:
+                    i += 1
                 j = 0
         return -1
