@@ -40,3 +40,12 @@ class SolutionTesting(unittest.TestCase):
 
     def test_case2(self) -> None:
         self.assert_test(haystack="leetcode", needle="leeto", expected=-1)
+
+    def test_case3(self) -> None:
+        self.assert_test(haystack="hello", needle="ll", expected=2)
+
+    def test_case4(self) -> None:
+        self.assert_test(haystack="aaaaa", needle="bba", expected=-1)
+
+    def test_case5(self) -> None:
+        self.assert_test(haystack="mississippi", needle="issip", expected=4)

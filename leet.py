@@ -46,9 +46,7 @@ class Solution:
             while j < len(needle) and haystack[i] == needle[j]:
                 i += 1
                 j += 1
-            i -= 1
-            j -= 1
-            if haystack[i] == needle[j]:
+            if haystack[i-1] == needle[j-1]:
                 # if needle found
                 return i - len(needle)
             else:
