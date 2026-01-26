@@ -40,12 +40,12 @@ from MyTypes.debug_rep.strIndex import strIndex
 
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
-        if len(haystack) < len(needle):
-            return -1
         i: int = 0  # index
         j: int = 0  # jndex
         setback: int = 0  # setback for duplicate character to 0 index, eg: issi
         while i < len(haystack):
+            if (len(haystack) - i) < len(needle):
+                return -1
             while j < len(needle) and i < len(haystack) and haystack[i] == needle[j]:
                 if setback == 0 and j > 0 and haystack[i] == needle[0]:
                     setback = i
@@ -61,6 +61,6 @@ class Solution:
                     i = setback
                     setback = 0
                 else:
-                    i += 1
+                    i += 1 if not j else 0
                 j = 0
         return -1

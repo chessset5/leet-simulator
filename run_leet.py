@@ -10,6 +10,9 @@ from LeetTypes.single_list_node import ListNode, list_to_node, node_to_list
 s = Solution()
 
 
-index: int = s.strStr(haystack="mississippi", needle="issip")
+index: int = s.strStr(
+    haystack="mississippi",
+    needle="pi",
+)
 
 print(index)
