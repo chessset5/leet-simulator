@@ -40,27 +40,9 @@ from MyTypes.debug_rep.strIndex import strIndex
 
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
-        i: int = 0  # index
-        j: int = 0  # jndex
-        setback: int = 0  # setback for duplicate character to 0 index, eg: issi
-        while i < len(haystack):
-            if (len(haystack) - i) < len(needle):
-                return -1
-            while j < len(needle) and i < len(haystack) and haystack[i] == needle[j]:
-                if setback == 0 and j > 0 and haystack[i] == needle[0]:
-                    setback = i
-                i += 1
-                j += 1
-            if j == len(needle) and haystack[i - 1] == needle[j - 1]:
-                # if needle found
-                # cur pos, minus len of needle
-                return i - len(needle)
-            else:
-                # set back to previous, double advance i, reset j
-                if setback:
-                    i = setback
-                    setback = 0
-                elif not j:
-                    i += 1
-                j = 0
+        h: int = len(haystack)
+        n: int = len(needle)
+        for i in range(h + n + 1):
+            if haystack[i : i + n] == needle:
+                return i
         return -1
