@@ -56,10 +56,11 @@ class Solution:
                 # cur pos, minus len of needle
                 return i - len(needle)
             else:
-                # advance i, reset 0, set back to previous double
-                i += 1
+                # set back to previous, double advance i, reset j
                 if setback:
                     i = setback
                     setback = 0
+                else:
+                    i += 1
                 j = 0
         return -1
