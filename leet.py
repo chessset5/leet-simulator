@@ -46,11 +46,11 @@ class Solution:
             while j < len(needle) and haystack[i] == needle[j]:
                 i += 1
                 j += 1
-            if haystack[i-1] == needle[j-1]:
+            if i > 0 and j > 0 and haystack[i - 1] == needle[j - 1]:
                 # if needle found
                 return i - len(needle)
             else:
-                # advance i, reset 0
+                # advance i, reset 0, go back by look back
                 i += 1
                 j = 0
         return -1
