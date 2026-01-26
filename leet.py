@@ -35,6 +35,8 @@ from typing import Optional
 
 from LeetTypes.single_list_node import ListNode, node_to_list, repr_node
 
+from MyTypes.debug_rep.strIndex import strIndex
+
 
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
@@ -44,9 +46,9 @@ class Solution:
         j: int = 0  # jndex
         setback: int = 0  # setback for duplicate character to 0 index, eg: issi
         while i < len(haystack):
-            while j < len(needle) and haystack[i] == needle[j]:
-                if setback == 0 and j > 0 and needle[j] == needle[0]:
-                    setback = j - 1  # offset for the increment
+            while j < len(needle) and i < len(haystack) and haystack[i] == needle[j]:
+                if setback == 0 and j > 0 and haystack[i] == needle[0]:
+                    setback = i
                 i += 1
                 j += 1
             if j == len(needle) and haystack[i - 1] == needle[j - 1]:
@@ -54,8 +56,10 @@ class Solution:
                 # cur pos, minus len of needle
                 return i - len(needle)
             else:
-                # advance i, reset 0
+                # advance i, reset 0, set back to previous double
                 i += 1
-                i -= setback
+                if setback:
+                    i = setback
+                    setback = 0
                 j = 0
         return -1
