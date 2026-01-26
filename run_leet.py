@@ -9,8 +9,7 @@ from LeetTypes.single_list_node import ListNode, list_to_node, node_to_list
 
 s = Solution()
 
-head: ListNode | None = list_to_node(ls=[1, 2, 3, 4, 5])
 
-head = s.reverseKGroup(head=head, k=2)
+index: int = s.strStr(haystack="sadbutsad", needle="sad")
 
-print(node_to_list(head=head))
+print(index)

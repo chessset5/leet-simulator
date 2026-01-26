@@ -1,22 +1,33 @@
 """
 Problem
 
-`25. Reverse Nodes in k-Group`
+28. Find the Index of the First Occurrence in a String
 
-[<https://leetcode.com/problems/swap-nodes-in-pairs/description/>]
-(https://leetcode.com/problems/reverse-nodes-in-k-group/description/)
+https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/description/
 
-# 25. Reverse Nodes in k-Group
+Given two strings needle and haystack,
+return the index of the first occurrence of needle in haystack,
+or -1 if needle is not part of haystack.
 
-Given the `head` of a linked list, reverse the nodes of the list `k` at a time,
-and return the *modified list*.
 
-`k` is a positive integer and is less than or equal to the length of the linked
-list. If the number of nodes is not a multiple of `k` then left-out nodes, in
-the end, should remain as it is.
 
-You may not alter the values in the list's nodes, only nodes themselves may be
-changed.
+Example 1:
+
+Input: haystack = "sadbutsad", needle = "sad"
+Output: 0
+Explanation: "sad" occurs at index 0 and 6.
+The first occurrence is at index 0, so we return 0.
+Example 2:
+
+Input: haystack = "leetcode", needle = "leeto"
+Output: -1
+Explanation: "leeto" did not occur in "leetcode", so we return -1.
+
+
+Constraints:
+
+1 <= haystack.length, needle.length <= 104
+haystack and needle consist of only lowercase English characters.
 
 """
 
@@ -25,51 +36,23 @@ from typing import Optional
 from LeetTypes.single_list_node import ListNode, node_to_list, repr_node
 
 
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
 class Solution:
-    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
-        ls_print: ListNode | None = head
-        cn: Optional[ListNode] = head  # current node
-        head = None
-        ln: Optional[ListNode] = head
-        while cn is not None:
-            shn: ListNode = cn  # sub head node
-            stn: ListNode = cn  # sub tail node
-
-            # verify there are enough nodes left
-            cnt: int = 0
-            for i in range(k):
-                if cn is None:
-                    break
-                cn = cn.next
-                cnt += 1
-            if cnt < k:
-                break
-
-            for i in range(k - 1):
-                # store next node
-                nn: ListNode = shn.next  # next node # type: ignore
-
-                # point sub header to nn.next
-                shn.next = nn.next
-
-                # put nn.next to stn
-                nn.next = stn
-
-                # update tail to nn
-                stn = nn
-
-            # set the first sub tail node to the new head
-            if head is None:
-                head = stn
-                ln = shn
+    def strStr(self, haystack: str, needle: str) -> int:
+        if len(haystack) < len(needle):
+            return -1
+        i: int = 0  # index
+        j: int = 0  # jndex
+        while i < len(haystack):
+            while j < len(needle) and haystack[i] == needle[j]:
+                i += 1
+                j += 1
+            i -= 1
+            j -= 1
+            if haystack[i] == needle[j]:
+                # if needle found
+                return i - len(needle)
             else:
-                # repoint ln to sub header
-                ln.next = stn  # type: ignore
-                ln = shn
-
-        return head
+                # advance i, reset 0
+                i += 1
+                j = 0
+        return -1

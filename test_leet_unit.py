@@ -19,26 +19,24 @@ class SolutionTesting(unittest.TestCase):
         self.sol = Solution()
 
     # TODO change to match current Solution Object
-    def assert_test(self, head: list, k: int, expected: list) -> None:
+    def assert_test(self, haystack: str, needle: str, expected: int) -> None:
         """Helper to standardize sorting and assertion logic."""
 
         # TODO change the below to match the current Solution Object
 
         # pre-process
-        h_node: ListNode | None = list_to_node(ls=head)  # head node
-        e_node: ListNode | None = list_to_node(ls=expected)  # expected node
 
         # solve
-        # new head
-        n_head: ListNode | None = self.sol.reverseKGroup(head=h_node, k=k)
+        # index
+        index: int = self.sol.strStr(haystack=haystack, needle=needle)
 
         # post-process
 
         # assert
-        self.assertTrue(expr=node_is_equal(n_head, e_node))
+        self.assertTrue(expr=index == expected)
 
     def test_case1(self) -> None:
-        self.assert_test(head=[1, 2, 3, 4, 5], k=2, expected=[2, 1, 4, 3, 5])
+        self.assert_test(haystack="sadbutsad", needle="sad", expected=0)
 
     def test_case2(self) -> None:
-        self.assert_test(head=[1, 2, 3, 4, 5], k=3, expected=[3, 2, 1, 4, 5])
+        self.assert_test(haystack="leetcode", needle="leeto", expected=-1)
