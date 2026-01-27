@@ -1,24 +1,27 @@
-`28. Find the Index of the First Occurrence in a String`
+`29. Divide Two Integers`
 
-<https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/description/>
+<https://leetcode.com/problems/divide-two-integers/>
 
-Given two strings needle and haystack,
-return the index of the first occurrence of needle in haystack,
-or -1 if needle is not part of haystack.
+Given two integers dividend and divisor, divide two integers without using multiplication, division, and mod operator.
+
+The integer division should truncate toward zero, which means losing its fractional part. For example, 8.345 would be truncated to 8, and -2.7335 would be truncated to -2.
+
+Return the quotient after dividing dividend by divisor.
+
+Note: Assume we are dealing with an environment that could only store integers within the 32-bit signed integer range: [−231, 231 − 1]. For this problem, if the quotient is strictly greater than 231 - 1, then return 231 - 1, and if the quotient is strictly less than -231, then return -231.
 
 Example 1:
 
-Input: haystack = "sadbutsad", needle = "sad"
-Output: 0
-Explanation: "sad" occurs at index 0 and 6.
-The first occurrence is at index 0, so we return 0.
+Input: dividend = 10, divisor = 3
+Output: 3
+Explanation: 10/3 = 3.33333.. which is truncated to 3.
 Example 2:
 
-Input: haystack = "leetcode", needle = "leeto"
-Output: -1
-Explanation: "leeto" did not occur in "leetcode", so we return -1.
+Input: dividend = 7, divisor = -3
+Output: -2
+Explanation: 7/-3 = -2.33333.. which is truncated to -2.
 
 Constraints:
 
-1 <= haystack.length, needle.length <= 104
-haystack and needle consist of only lowercase English characters.
+-231 <= dividend, divisor <= 231 - 1
+divisor != 0
