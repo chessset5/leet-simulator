@@ -55,14 +55,29 @@ from MyTypes.debug_rep.strIndex import strIndex
 class Solution:
     def divide(self, dividend: int, divisor: int) -> int:
         # no need to check for 0
+        # make the inputs positive
         if divisor < 0:
             output: int = self.divide(dividend, -divisor)
-            return -output
+            return -output  # negate input
         if dividend < 0:
             output: int = self.divide(-dividend, divisor)
-            return -output
-        counter: int = 0
-        while dividend >= divisor:
-            dividend = dividend - divisor
-            counter += 1
-        return counter
+            return -output  # negate input
+        # Note, if both inputs are negative,
+        # since the output is negated twice, it becomes positive again
+
+        # implementing the divisor algorithm
+
+        quotent: int = 0
+        remainder: int = 0
+        index: int = len(bin(dividend)) - 1 - 2
+        # bin returns a bstring '0bx', where x is the bits of the string
+        # so we subtract 2 extra chars
+        while index >= 0:
+            remainder <<= 1
+            bit = int(bool(dividend & (1 << (index - 2))))  # Note this might have to shift by +-2
+            remainder |= bit << 0
+            if remainder >= divisor:
+                remainder -= divisor
+                dividend |= 1 << index
+            index -= 1
+        return quotent
