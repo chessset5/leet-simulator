@@ -43,7 +43,7 @@ from typing import Optional
 
 from LeetTypes.single_list_node import ListNode, node_to_list, repr_node
 
-from MyTypes.debug_rep.strIndex import strIndex
+from MyTypes.debug_rep.vis_index import StrIndex, BinIntIndex
 
 # pylint: disable=C0115
 # pylint: disable=C0116
@@ -69,12 +69,10 @@ class Solution:
 
         quotent: int = 0
         remainder: int = 0
-        index: int = len(bin(dividend)) - 1 - 2
-        # bin returns a bstring '0bx', where x is the bits of the string
-        # so we subtract 2 extra chars
+        index: int = dividend.bit_length() - 1
         while index >= 0:
             remainder <<= 1
-            bit = int(bool(dividend & (1 << (index - 2))))  # Note this might have to shift by +-2
+            bit = int(bool(dividend & (1 << (index))))
             remainder |= bit << 0
             if remainder >= divisor:
                 remainder -= divisor
