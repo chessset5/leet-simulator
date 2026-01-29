@@ -14,6 +14,6 @@ from LeetTypes.single_list_node import ListNode, list_to_node, node_to_list
 s = Solution()
 
 
-ret: Any = s.findSubstring(s="barfoothefoobarman", words=["foo", "bar"])
+ret: Any = s.findSubstring(s="barfoofoobarthefoobarman", words=["bar", "foo", "the"])
 
 print(ret)

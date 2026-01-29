@@ -80,30 +80,39 @@ from MyTypes.debug_rep.vis_index import StrIndex, BinIntIndex
 
 
 class Solution:
+    def subList(self, words: list[str], i: int) -> list[str]:
+        return words[:i] + words[i + 1 :]
+
+    def canConcat(self, s: str, words: list[str]) -> bool:
+        if len(words) == 0:
+            return True
+        i: int = 0
+        while i < len(words):
+            w: str = words[i]
+            if s.startswith(w):
+                return self.canConcat(s[len(w) :], self.subList(words, i))
+            i += 1
+        return False
+
     def findSubstring(self, s: str, words: List[str]) -> List[int]:
         indexes: list[int] = []
         for i in range(len(words)):
             w: str = words[i]  # word
             go: bool = True  # iterator condition
             p: int = -1  # possition
+            first: bool = True
             while go:
                 go = False
                 p = s.find(w, p + 1)
+                if first and p == -1:
+                    # word doesn't exist, concat not possible
+                    return []
                 if p > -1:
                     go = True
+                    first = False
                     substr: str = s[p + len(w) :]
-                    inc: int = 0
-                    cnt: int = 0
-                    for j in range(len(words)):
-                        if j == i:
-                            continue
-                        iw: str = words[j]
-                        if substr.startswith(iw):
-                            inc += len(iw)
-                            cnt += 1
-                    if cnt == (len(words) - 1):
+                    if self.canConcat(substr, self.subList(words, i)):
                         indexes.append(p)
-
                     p += len(w)
 
         indexes.sort()
