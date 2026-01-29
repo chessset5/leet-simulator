@@ -73,7 +73,7 @@ class Solution:
         while index >= 0:
             remainder <<= 1
             bit = int(bool(dividend & (1 << (index))))
-            remainder |= bit << 0
+            remainder |= bit
             if remainder >= divisor:
                 remainder -= divisor
                 quotent |= 1 << index
