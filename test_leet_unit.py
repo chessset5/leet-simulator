@@ -54,6 +54,9 @@ class SolutionTesting(unittest.TestCase):
     def test_repeating_characters(self) -> None:
         self.assert_test(s="aaaaaaaaaaaaaa", words=["aa", "aa"], expected=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
+    def test_semi_repeating_characters(self) -> None:
+        self.assert_test(s="aaaca", words=["ac", "aa"], expected=[0])
+
     def test_repeating_characters_extended(self) -> None:
         # aka, the devil's bullshit
         bs: dict = {}

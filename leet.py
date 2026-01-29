@@ -89,22 +89,22 @@ class Solution:
             if s.startswith(c):
                 return True
 
-        start_string: str = s
         go_next: bool = True
+        cur_concat: str = ""
         while go_next:
             i: int = 0
             go_next = False
             while len(s) and i < len(words):
                 w: str = words[i]
                 if s.startswith(w):
+                    cur_concat += w
                     s = s[len(w) :]
                     words = self.subList(words, i)
                     i -= 1
                     go_next = True
                 i += 1
             if len(words) == 0:
-                concat: str = start_string.replace(s, "")
-                cache.add(concat)
+                cache.add(cur_concat)
         return len(words) == 0
 
     def findSubstring(self, s: str, words: List[str]) -> List[int]:
@@ -130,7 +130,7 @@ class Solution:
                     go = True
                     first = False
                     sub_s: str = s[p + len(w) :]
-                    if (p + min_chars) > len(s):
+                    if min_chars - len(w) > len(sub_s):
                         # no more pos to check
                         break
                     sub_words: list[str] = self.subList(words, i)
