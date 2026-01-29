@@ -30,4 +30,7 @@ class BinIntIndex(StrIndex):
     """
 
     def __init__(self, integer: int, index: int) -> None:
-        super().__init__(bin(integer), index + 2)
+        val: str = bin(integer)
+        if index >= len(val) - 2:
+            raise IndexError("Index outside of bit selection")
+        super().__init__(val, index + 2)
