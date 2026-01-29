@@ -96,8 +96,12 @@ class Solution:
 
     def findSubstring(self, s: str, words: List[str]) -> List[int]:
         indexes: list[int] = []
+        checked_words: set[str] = set()
         for i in range(len(words)):
             w: str = words[i]  # word
+            if w in checked_words:
+                continue
+            checked_words.add(w)
             go: bool = True  # iterator condition
             p: int = 0  # possition
             first: bool = True  # variable for checking if concat is possible
@@ -113,7 +117,7 @@ class Solution:
                     substr: str = s[p + len(w) :]
                     if self.canConcat(substr, self.subList(words, i)):
                         indexes.append(p)
-                    p += len(w)
+                    p += 1
 
         indexes.sort()
         return indexes
