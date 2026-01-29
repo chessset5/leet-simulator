@@ -14,6 +14,6 @@ from LeetTypes.single_list_node import ListNode, list_to_node, node_to_list
 s = Solution()
 
 
-ret: Any = s.divide(dividend=-2147483648, divisor=-1)
+ret: Any = s.findSubstring(s="barfoothefoobarman", words=["foo", "bar"])
 
 print(ret)

@@ -25,7 +25,7 @@ class SolutionTesting(unittest.TestCase):
 
     # pylint: disable=W0511
     # TODO change to match current Solution Object
-    def assert_test(self, dividend: int, divisor: int, expected: int) -> None:
+    def assert_test(self, s: str, words: List[str], expected: List[int]) -> None:
         """Helper to standardize sorting and assertion logic."""
 
         # TODO change the below to match the current Solution Object
@@ -34,21 +34,18 @@ class SolutionTesting(unittest.TestCase):
 
         # solve
         # index
-        output: Any = self.sol.divide(dividend, divisor)
+        output: Any = self.sol.findSubstring(s=s, words=words)
 
         # post-process
 
         # assert
-        self.assertEqual(output, expected)
+        self.assertEqual(first=output, second=expected)
 
     def test_case1(self) -> None:
-        self.assert_test(dividend=10, divisor=3, expected=3)
+        self.assert_test(s="barfoothefoobarman", words=["foo", "bar"], expected=[0, 9])
 
     def test_case2(self) -> None:
-        self.assert_test(dividend=7, divisor=-3, expected=-2)
+        self.assert_test(s="wordgoodgoodgoodbestword", words=["word", "good", "best", "word"], expected=[])
 
-    def test_upper_bounds(self) -> None:
-        self.assert_test(dividend=-2147483648, divisor=-1, expected=2147483647)
-
-    def test_lower_bounds(self) -> None:
-        self.assert_test(dividend=-2147483648, divisor=1, expected=-2147483648)
+    def test_case3(self) -> None:
+        self.assert_test(s="barfoofoobarthefoobarman", words=["bar", "foo", "the"], expected=[6, 9, 12])

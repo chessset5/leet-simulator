@@ -1,45 +1,74 @@
 """
 Problem
 
-`29. Divide Two Integers`
+`30. Substring with Concatenation of All Words`
 
-<https://leetcode.com/problems/divide-two-integers/>
+<https://leetcode.com/problems/substring-with-concatenation-of-all-words/description/>
 
-Given two integers dividend and divisor,
-divide two integers without using multiplication, division, and mod operator.
+You are given a string s and an array of strings words.
+All the strings of words are of the same length.
 
-The integer division should truncate toward zero,
-which means losing its fractional part. For example,
-8.345 would be truncated to 8, and -2.7335 would be truncated to -2.
+A concatenated string is a string that exactly contains all the strings of any
+permutation of words concatenated.
 
-Return the quotient after dividing dividend by divisor.
-
-Note: Assume we are dealing with an environment that could only store integers
-within the 32-bit signed integer range: [−231, 231 − 1]. For this problem,
-if the quotient is strictly greater than 231 - 1, then return 231 - 1,
-and if the quotient is strictly less than -231, then return -231.
+For example, if words = ["ab","cd","ef"], then "abcdef", "abefcd", "cdabef",
+"cdefab", "efabcd", and "efcdab" are all concatenated strings. "acdbef" is not
+a concatenated string because it is not the concatenation of any permutation of
+words.
+Return an array of the starting indices of all the concatenated substrings in s.
+You can return the answer in any order.
 
 Example 1:
 
-Input: dividend = 10, divisor = 3
-Output: 3
-Explanation: 10/3 = 3.33333.. which is truncated to 3.
+Input: s = "barfoothefoobarman", words = ["foo","bar"]
+
+Output: [0,9]
+
+Explanation:
+
+The substring starting at 0 is "barfoo". It is the concatenation of
+["bar","foo"] which is a permutation of words.
+The substring starting at 9 is "foobar". It is the concatenation of
+["foo","bar"] which is a permutation of words.
+
 Example 2:
 
-Input: dividend = 7, divisor = -3
-Output: -2
-Explanation: 7/-3 = -2.33333.. which is truncated to -2.
+Input: s = "wordgoodgoodgoodbestword", words = ["word","good","best","word"]
+
+Output: []
+
+Explanation:
+
+There is no concatenated substring.
+
+Example 3:
+
+Input: s = "barfoofoobarthefoobarman", words = ["bar","foo","the"]
+
+Output: [6,9,12]
+
+Explanation:
+
+The substring starting at 6 is "foobarthe". It is the concatenation of
+["foo","bar","the"].
+The substring starting at 9 is "barthefoo". It is the concatenation of
+["bar","the","foo"].
+The substring starting at 12 is "thefoobar". It is the concatenation of
+["the","foo","bar"].
 
 Constraints:
 
--231 <= dividend, divisor <= 231 - 1
-divisor != 0
+1 <= s.length <= 104
+1 <= words.length <= 5000
+1 <= words[i].length <= 30
+s and words[i] consist of lowercase English letters.
+
 
 """
 
 # pylint: disable=W0611
 
-from typing import Optional
+from typing import Optional, List
 
 from LeetTypes.single_list_node import ListNode, node_to_list, repr_node
 
@@ -53,49 +82,4 @@ from MyTypes.debug_rep.vis_index import StrIndex, BinIntIndex
 
 
 class Solution:
-    def unsigned_divide(self, dividend: int, divisor: int) -> int:
-        # implementing the unsigned divisor algorithm
-
-        quotent: int = 0
-        remainder: int = 0
-        index: int = dividend.bit_length() - 1
-        while index >= 0:
-            remainder <<= 1
-            bit = int(bool(dividend & (1 << index)))
-            remainder |= bit
-            if remainder >= divisor:
-                remainder -= divisor
-                quotent |= 1 << index
-            index -= 1
-
-        return quotent
-
-    def divide(self, dividend: int, divisor: int) -> int:
-        # no need to check for 0
-        quotent: int = 0
-        sign: int = 1
-
-        # sanitize input
-        if divisor < 0:
-            sign = -sign
-            divisor = -divisor
-        if dividend < 0:
-            # negative dividend
-            dividend = -dividend
-            sign = -sign
-
-        quotent = self.unsigned_divide(dividend, divisor)
-
-        # apply sign
-        if sign < 0:
-            quotent = -quotent
-
-        # apply bound
-        max_quotent = 2**31 - 1
-        min_quotent = -(2**31)
-        if quotent > max_quotent:
-            quotent = max_quotent
-        if quotent < min_quotent:
-            quotent = min_quotent
-
-        return quotent
+    def findSubstring(self, s: str, words: List[str]) -> List[int]: ...
