@@ -83,18 +83,23 @@ class Solution:
         return words[:i] + words[i + 1 :]
 
     def canConcat(self, s: str, words: list[str]) -> bool:
-        if len(words) == 0:
-            return True
-        i: int = 0
-        while i < len(words):
-            w: str = words[i]
-            if s.startswith(w):
-                return self.canConcat(s[len(w) :], self.subList(words, i))
-            i += 1
-        return False
+        go_next: bool = True
+        while go_next:
+            i: int = 0
+            go_next = False
+            while len(s) and i < len(words):
+                w: str = words[i]
+                if s.startswith(w):
+                    s = s[len(w) :]
+                    words = self.subList(words, i)
+                    i -= 1
+                    go_next = True
+                i += 1
+        return len(words) == 0
 
     def findSubstring(self, s: str, words: List[str]) -> List[int]:
         indexes: list[int] = []
+        min_chars: int = len("".join(words))
         checked_words: set[str] = set()
         for i in range(len(words)):
             w: str = words[i]  # word
@@ -114,6 +119,9 @@ class Solution:
                     go = True
                     first = False
                     substr: str = s[p + len(w) :]
+                    if (p + min_chars) > len(s):
+                        # no more pos to check
+                        break
                     if self.canConcat(substr, self.subList(words, i)):
                         indexes.append(p)
                     p += 1
