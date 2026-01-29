@@ -76,6 +76,6 @@ class Solution:
             remainder |= bit << 0
             if remainder >= divisor:
                 remainder -= divisor
-                dividend |= 1 << index
+                quotent |= 1 << index
             index -= 1
         return quotent

@@ -48,4 +48,4 @@ class SolutionTesting(unittest.TestCase):
         self.assert_test(dividend=7, divisor=-3, expected=-2)
 
     def test_case3(self) -> None:
-        self.assert_test(dividend=-2147483648, divisor=-1, expected=-2)
+        self.assert_test(dividend=-2147483648, divisor=-1, expected=2147483648)
