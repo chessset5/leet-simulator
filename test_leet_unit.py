@@ -49,3 +49,9 @@ class SolutionTesting(unittest.TestCase):
 
     def test_case3(self) -> None:
         self.assert_test(s="barfoofoobarthefoobarman", words=["bar", "foo", "the"], expected=[6, 9, 12])
+
+    def test_duplicate_words(self) -> None:
+        self.assert_test(s="wordgoodgoodgoodbestword", words=["word", "good", "best", "good"], expected=[8])
+
+    def test_repeating_characters(self) -> None:
+        self.assert_test(s="aaaaaaaaaaaaaa", words=["aa", "aa"], expected=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
