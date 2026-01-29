@@ -76,10 +76,35 @@ from MyTypes.debug_rep.vis_index import StrIndex, BinIntIndex
 
 # pylint: disable=C0115
 # pylint: disable=C0116
-
-# NOTE: I based this off the divisor wiki page,
-#  https://en.wikipedia.org/wiki/Division_algorithm
+# pylint: disable=C0200
 
 
 class Solution:
-    def findSubstring(self, s: str, words: List[str]) -> List[int]: ...
+    def findSubstring(self, s: str, words: List[str]) -> List[int]:
+        indexes: list[int] = []
+        for i in range(len(words)):
+            w: str = words[i]  # word
+            go: bool = True  # iterator condition
+            p: int = -1  # possition
+            while go:
+                go = False
+                p = s.find(w, p + 1)
+                if p > -1:
+                    go = True
+                    substr: str = s[p + len(w) :]
+                    inc: int = 0
+                    cnt: int = 0
+                    for j in range(len(words)):
+                        if j == i:
+                            continue
+                        iw: str = words[j]
+                        if substr.startswith(iw):
+                            inc += len(iw)
+                            cnt += 1
+                    if cnt == (len(words) - 1):
+                        indexes.append(p)
+
+                    p += len(w)
+
+        indexes.sort()
+        return indexes
