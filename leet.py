@@ -68,11 +68,10 @@ s and words[i] consist of lowercase English letters.
 
 # pylint: disable=W0611
 
-from typing import Optional, List
+from typing import List, Optional
 
 from LeetTypes.single_list_node import ListNode, node_to_list, repr_node
-
-from MyTypes.debug_rep.vis_index import StrIndex, BinIntIndex
+from MyTypes.debug_rep.vis_index import BinIntIndex, StrIndex
 
 # pylint: disable=C0115
 # pylint: disable=C0116
