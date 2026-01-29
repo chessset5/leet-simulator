@@ -99,11 +99,11 @@ class Solution:
         for i in range(len(words)):
             w: str = words[i]  # word
             go: bool = True  # iterator condition
-            p: int = -1  # possition
+            p: int = 0  # possition
             first: bool = True
             while go:
                 go = False
-                p = s.find(w, p + 1)
+                p = s.find(w, p)
                 if first and p == -1:
                     # word doesn't exist, concat not possible
                     return []
