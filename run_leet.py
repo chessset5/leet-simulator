@@ -19,7 +19,7 @@ s = Solution()
 # ret: Any = s.findSubstring(s="barfoothefoobarman", words=["foo", "bar"])
 
 bs: dict = {}
-with open("./test_repeating_characters_extended.json", "r", encoding="utf-8") as file:
+with open("./test_repeating_characters_extended_extended.json", "r", encoding="utf-8") as file:
     bs = dict(json.load(file))
 ret: Any = s.findSubstring(s=bs["s"], words=bs["words"])
 

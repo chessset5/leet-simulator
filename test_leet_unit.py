@@ -63,3 +63,10 @@ class SolutionTesting(unittest.TestCase):
         with open("./test_repeating_characters_extended.json", "r", encoding="utf-8") as file:
             bs = dict(json.load(file))
         self.assert_test(bs["s"], bs["words"], bs["expected"])
+    
+    def test_repeating_characters_super_extended(self) -> None:
+        # aka, the devil's bullshit
+        bs: dict = {}
+        with open("./test_repeating_characters_extended_extended.json", "r", encoding="utf-8") as file:
+            bs = dict(json.load(file))
+        self.assert_test(bs["s"], bs["words"], bs["expected"])
