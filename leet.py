@@ -79,10 +79,18 @@ from MyTypes.debug_rep.vis_index import BinIntIndex, StrIndex
 
 
 class Solution:
+    master: set[str] = set()
+
     def subList(self, words: list[str], i: int) -> list[str]:
         return words[:i] + words[i + 1 :]
 
-    def canConcat(self, s: str, words: list[str]) -> bool:
+    def canConcat(self, s: str, words: list[str], start: str) -> bool:
+        # checking master cache
+        for m in self.master:
+            if s.startswith(m):
+                return True
+
+        start_string: str = s
         go_next: bool = True
         while go_next:
             i: int = 0
@@ -95,6 +103,9 @@ class Solution:
                     i -= 1
                     go_next = True
                 i += 1
+            if len(words) == 0:
+                concat: str = start_string.replace(s, "")
+                self.master.add(start + concat)
         return len(words) == 0
 
     def findSubstring(self, s: str, words: List[str]) -> List[int]:
@@ -122,7 +133,7 @@ class Solution:
                     if (p + min_chars) > len(s):
                         # no more pos to check
                         break
-                    if self.canConcat(substr, self.subList(words, i)):
+                    if self.canConcat(substr, self.subList(words, i), w):
                         indexes.append(p)
                     p += 1
 
