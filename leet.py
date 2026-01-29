@@ -100,10 +100,10 @@ class Solution:
             w: str = words[i]  # word
             go: bool = True  # iterator condition
             p: int = 0  # possition
-            first: bool = True
+            first: bool = True  # variable for checking if concat is possible
             while go:
                 go = False
-                p = s.find(w, p)
+                p = s.find(w, p)  # look for the next possition
                 if first and p == -1:
                     # word doesn't exist, concat not possible
                     return []
