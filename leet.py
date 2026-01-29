@@ -79,15 +79,14 @@ from MyTypes.debug_rep.vis_index import BinIntIndex, StrIndex
 
 
 class Solution:
-    master: set[str] = set()
 
     def subList(self, words: list[str], i: int) -> list[str]:
         return words[:i] + words[i + 1 :]
 
-    def canConcat(self, s: str, words: list[str], start: str) -> bool:
+    def canConcat(self, s: str, words: list[str], cache: set[str]) -> bool:
         # checking master cache
-        for m in self.master:
-            if s.startswith(m):
+        for c in cache:
+            if s.startswith(c):
                 return True
 
         start_string: str = s
@@ -105,22 +104,23 @@ class Solution:
                 i += 1
             if len(words) == 0:
                 concat: str = start_string.replace(s, "")
-                self.master.add(start + concat)
+                cache.add(concat)
         return len(words) == 0
 
     def findSubstring(self, s: str, words: List[str]) -> List[int]:
         indexes: list[int] = []
         min_chars: int = len("".join(words))
         checked_words: set[str] = set()
-        for i in range(len(words)):
+        for i in range(len(words)):  # for each word
             w: str = words[i]  # word
             if w in checked_words:
                 continue
             checked_words.add(w)
+            word_cache: set[str] = set()
             go: bool = True  # iterator condition
             p: int = 0  # possition
             first: bool = True  # variable for checking if concat is possible
-            while go:
+            while go:  # while the word exists
                 go = False
                 p = s.find(w, p)  # look for the next possition
                 if first and p == -1:
@@ -129,11 +129,12 @@ class Solution:
                 if p > -1:
                     go = True
                     first = False
-                    substr: str = s[p + len(w) :]
+                    sub_s: str = s[p + len(w) :]
                     if (p + min_chars) > len(s):
                         # no more pos to check
                         break
-                    if self.canConcat(substr, self.subList(words, i), w):
+                    sub_words: list[str] = self.subList(words, i)
+                    if self.canConcat(sub_s, sub_words, word_cache):
                         indexes.append(p)
                     p += 1
 
