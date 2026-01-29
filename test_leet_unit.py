@@ -47,5 +47,8 @@ class SolutionTesting(unittest.TestCase):
     def test_case2(self) -> None:
         self.assert_test(dividend=7, divisor=-3, expected=-2)
 
-    def test_case3(self) -> None:
-        self.assert_test(dividend=-2147483648, divisor=-1, expected=2147483648)
+    def test_upper_bounds(self) -> None:
+        self.assert_test(dividend=-2147483648, divisor=-1, expected=2147483647)
+
+    def test_lower_bounds(self) -> None:
+        self.assert_test(dividend=-2147483648, divisor=1, expected=-2147483648)

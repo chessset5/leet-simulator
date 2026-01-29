@@ -53,29 +53,49 @@ from MyTypes.debug_rep.vis_index import StrIndex, BinIntIndex
 
 
 class Solution:
-    def divide(self, dividend: int, divisor: int) -> int:
-        # no need to check for 0
-        # make the inputs positive
-        if divisor < 0:
-            output: int = self.divide(dividend, -divisor)
-            return -output  # negate input
-        if dividend < 0:
-            output: int = self.divide(-dividend, divisor)
-            return -output  # negate input
-        # Note, if both inputs are negative,
-        # since the output is negated twice, it becomes positive again
-
-        # implementing the divisor algorithm
+    def unsigned_divide(self, dividend: int, divisor: int) -> int:
+        # implementing the unsigned divisor algorithm
 
         quotent: int = 0
         remainder: int = 0
         index: int = dividend.bit_length() - 1
         while index >= 0:
             remainder <<= 1
-            bit = int(bool(dividend & (1 << (index))))
+            bit = int(bool(dividend & (1 << index)))
             remainder |= bit
             if remainder >= divisor:
                 remainder -= divisor
                 quotent |= 1 << index
             index -= 1
+
+        return quotent
+
+    def divide(self, dividend: int, divisor: int) -> int:
+        # no need to check for 0
+        quotent: int = 0
+        sign: int = 1
+
+        # sanitize input
+        if divisor < 0:
+            sign = -sign
+            divisor = -divisor
+        if dividend < 0:
+            # negative dividend
+            dividend = -dividend
+            sign = -sign
+
+        quotent = self.unsigned_divide(dividend, divisor)
+
+        # apply sign
+        if sign < 0:
+            quotent = -quotent
+
+        # apply bound
+        max_quotent = 2**31 - 1
+        min_quotent = -(2**31)
+        if quotent > max_quotent:
+            quotent = max_quotent
+        if quotent < min_quotent:
+            quotent = min_quotent
+
         return quotent
