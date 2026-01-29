@@ -20,10 +20,6 @@ class SolutionTesting(unittest.TestCase):
     unit test class for Solution
     """
 
-    def setUp(self):
-        """Initialize the solution once for all tests."""
-        self.sol = Solution()
-
     # pylint: disable=W0511
     # TODO change to match current Solution Object
     def assert_test(self, s: str, words: List[str], expected: List[int]) -> None:
@@ -35,7 +31,8 @@ class SolutionTesting(unittest.TestCase):
 
         # solve
         # index
-        output: Any = self.sol.findSubstring(s=s, words=words)
+        sol = Solution()
+        output: Any = sol.findSubstring(s=s, words=words)
 
         # post-process
 
